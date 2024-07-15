@@ -1,0 +1,32 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/u,/api/v1/u/**
+        - id: job-service
+          uri: lb://job-service
+          predicates:
+            - Path=/api/v1/j,/api/v1/j/**
+        - id: edu-service
+          uri: lb://edu-service
+          predicates:
+            - Path=/api/v1/e,/api/v1/e/**
+      default-filters:
+        - RemoveRequestHeader=User
+        - RemoveRequestHeader=user
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8762/eureka
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
