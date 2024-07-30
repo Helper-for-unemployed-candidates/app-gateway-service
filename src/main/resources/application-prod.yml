@@ -1,5 +1,9 @@
 server:
-  port: 80
+  port: 443
+  ssl:
+    key-store: classpath:application.p12
+    key-store-type: PKCS12
+    key-store-password: hellom
 spring:
   cloud:
     gateway:
